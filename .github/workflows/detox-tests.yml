@@ -1,0 +1,47 @@
+name: Detox Tests on Push
+
+on:
+  push:
+    branches:
+      - main  # o la rama que uses (por ejemplo, 'develop')
+  pull_request:
+    branches:
+      - main  # o la rama que uses para pull requests
+
+jobs:
+  detox-tests:
+    runs-on: ubuntu-latest  # Usa Ubuntu como sistema operativo para ejecutar las pruebas.
+
+    steps:
+      # Paso 1: Verificar el código del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Paso 2: Configurar Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Configura la versión de Node.js que necesitas.
+
+      # Paso 3: Instalar dependencias
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install  # Si usas Playwright, asegúrate de instalar los navegadores.
+
+      # Paso 4: Configurar emulador de Android (opcional)
+      - name: Set up Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          apiLevel: 30  # Cambia a la versión de Android que necesites.
+          target: google_apis
+          arch: x86_64
+          force-avd-creation: true
+          emulators: android-30
+
+      # Paso 5: Ejecutar pruebas Detox
+      - name: Run Detox Tests
+        run: |
+          npm run detox:test  # Ejecuta las pruebas de Detox.
+        env:
+          DETOX_CONFIG: "android.emu.debug"  # O la configuración que utilices.
