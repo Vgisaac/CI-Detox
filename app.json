@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "Exlogrn",
+    "slug": "Exlogrn",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/app.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/app.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.vgisaac.Exlogrn"
+    },
+    "web": {
+      "favicon": "./assets/app.png"
+    },
+    "plugins": ["@config-plugins/detox"]
+  }
+}
